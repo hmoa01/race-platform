@@ -1,0 +1,30 @@
+### TESTING SERVER ROUTE
+
+GET http://localhost:4000
+
+
+### REGISTER
+
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Zdravko",
+  "lastName": "Ristic",
+  "userName": "zdravko",
+  "email": "zdravkoristic91@gmail.com",
+  "password": "test"
+    
+
+}
+
+
+### LOGIN
+
+POST http://localhost:4000/auth/login
+Content-Type:  application/json
+
+{
+    "password": "test",
+    "email": "zdravkoristic90@gmail.com"
+}
