@@ -2,3 +2,15 @@
 
 
 GET http://localhost:4000/user
+
+
+
+### UPDATE USER 
+
+PUT http://localhost:4000/user/update/64a7399783748126f8550e85
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7Il9pZCI6IjY0YTk2YzA4YmVhY2UxY2RhNDM4ZWY5ZiIsImZpcnN0TmFtZSI6IlpkcmF2a28iLCJsYXN0TmFtZSI6IlJpc3RpYyIsInVzZXJOYW1lIjoiemRyYXZrbyIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2ODg4MjUwMDAsImV4cCI6MTY4ODkxMTQwMH0.FR9o3ZWObWNGuKCiTM4v50FsbtZKJi9sAFbnHbiBylI
+
+{
+    "firstName": "Petar"
+}
