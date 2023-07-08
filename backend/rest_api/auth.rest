@@ -12,7 +12,7 @@ Content-Type: application/json
   "firstName": "Zdravko",
   "lastName": "Ristic",
   "userName": "zdravko",
-  "email": "zdravkoristic91@gmail.com",
+  "email": "zdravkoristic90@gmail.com",
   "password": "test"
     
 
@@ -23,6 +23,7 @@ Content-Type: application/json
 
 POST http://localhost:4000/auth/login
 Content-Type:  application/json
+
 
 {
     "password": "test",

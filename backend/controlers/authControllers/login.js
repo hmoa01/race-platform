@@ -1,41 +1,42 @@
+
 const UserModel = require("../../models/userModel");
-
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
+const { currentToken } = require("../../helpers/jwt");
 
-const { httpStatus } = require("../../config/httpStatus");
 
 const login = async (req, res) => {
-  const { userName, password } = req.body;
-  const reqBody = req.body;
+  const { password, email } = req.body;
 
-  let isUserExits = await UserModel.findOne({ userName });
+  try {
+    const user = await UserModel.findOne({ email }, null, { lean: true });
 
-  if (isUserExits >= 1) {
-    res.status(httpStatus.EXIST.status).send(httpStatus.EXIST.send);
-  } else {
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-      if (err) {
-        res
-          .status(httpStatus.INTERNAL_SERVER_ERROR.status)
-          .send(httpStatus.INTERNAL_SERVER_ERROR.send);
-      } else {
-        reqBody.password = hash;
+    if (user) {
+      bcrypt.compare(password, user.password, (error, result) => {
+        if (result) {
+          const { password, ...thisUser } = user;
 
-        let newUser = new UserModel({ ...reqBody });
-
-        newUser
-          .save()
-          .then((user) => res.send(user))
-          .catch((err) => {
-            console.error(err);
-            res
-              .status(httpStatus.CANNOT_SAVE_USER.status)
-              .send(httpStatus.CANNOT_SAVE_USER.send);
+          const token = currentToken({
+            _id: thisUser._id,
+            firstName: thisUser.firstName,
+            lastName: thisUser.lastName,
+            userName: thisUser.userName,
+            role: thisUser.role,
           });
-      }
-    });
+          
+
+          res.send({ user: thisUser, token });
+          
+        } else {
+          res.status(500).send({ message: "user not valid" });
+        }
+      });
+    } else {
+      res.status(500).send({ message: "error user dont exist in db" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "error user dont exist in db" });
   }
 };
 
-module.exports = login;
+module.exports =  login;
