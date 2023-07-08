@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const { PORT, DB_URL } = require('./config/config.js')
+const  errorHandler  = require('./errorHandler/globalHandler.js')
 
 
 
@@ -10,6 +11,7 @@ const app = express()
 
 app.use(express.json())
 app.use('/', require('./routes/index.js'))
+app.use(errorHandler)
 
 
 app.get('/',(req, res) => {
