@@ -1,6 +1,5 @@
 const UserModel = require('../../models/userModel');
-const bcrypt = require('bcrypt');
-const { currentToken } = require('../../helpers/jwt');
+const { createToken } = require('../../helpers/jwt');
 const {
   ValidationError,
   NotFoundError,
@@ -10,9 +9,9 @@ const bCryptFunctions = require('../../helpers/bcryptFunctions');
 
 const login = async (req, res, next) => {
   try {
-    const { password, email } = req.body;
+    const { password, userName } = req.body;
 
-    const user = await UserModel.findOne({ email }, null, { lean: true });
+    const user = await UserModel.findOne({ userName }, null, { lean: true });
 
     if (!user) {
       throw new NotFoundError('error user dont exist in db');
@@ -30,15 +29,17 @@ const login = async (req, res, next) => {
     delete user.password;
     // const { pass:password, ...thisUser } = user;
 
-    const token = currentToken({
+    const token = await createToken({
       _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       userName: user.userName,
       role: user.role,
     });
+    console.log('token');
+    console.log(token);
 
-    res.send({ user, token });
+    return res.send({ user, token });
   } catch (error) {
     return next(error);
   }
