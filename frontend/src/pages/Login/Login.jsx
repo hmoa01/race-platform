@@ -70,7 +70,7 @@ const Login = () => {
               onChange={formik.handleChange}
               value={formik.values.userName}
               name="userName"
-              className="placeholder:text-[#43425D] p-[10px] border-b-2 text-center w-[80%] lg:w-[80%] mb-[15px] focus:border-[#43425D] outline-none"
+              className="placeholder:text-[#43425D] p-[10px] border-b-2  w-[80%] lg:w-[80%] mb-[15px] focus:border-[#43425D] outline-none"
               placeholder="Username"
             />
 
@@ -79,10 +79,10 @@ const Login = () => {
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
-              className="placeholder:text-[#43425D] p-[10px] text-center border-b-2 w-[80%] lg:w-[80%]  focus:border-[#43425D] outline-none"
+              className="placeholder:text-[#43425D] p-[10px] border-b-2 w-[80%] lg:w-[80%]  focus:border-[#43425D] outline-none"
               placeholder="Password"
             />
-            <div className="flex gap-3 lg:gap-8 mt-[25px]">
+            <div className="flex justify-between w-[80%] mt-[25px]">
               <div className="flex items-center">
                 <input
                   type="checkbox"
@@ -100,7 +100,7 @@ const Login = () => {
                 <button className="text-[#43425D]">Forgot Password</button>
               </div>
             </div>
-            <div className="mt-[40px] flex gap-6">
+            <div className="mt-[40px] flex justify-between w-[80%]">
               <Button
                 type="submit"
                 text="Login"

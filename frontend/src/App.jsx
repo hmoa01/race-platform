@@ -1,5 +1,7 @@
 import './App.css';
-import Login from './pages/Login/Login';
+import ConfirmPassword from './pages/ConfirmPassword/ConfirmPassword';
+
+
 
 function App() {
   return (
