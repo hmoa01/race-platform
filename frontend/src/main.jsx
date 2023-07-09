@@ -7,6 +7,9 @@ import axios from 'axios';
 import './index.css';
 import store from './store/store.js';
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 axios.defaults.baseURL = 'http://localhost:4000/';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -14,5 +17,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <App />
     </Provider>
+    <ToastContainer position="top-center" autoClose={1000} />
   </React.StrictMode>
 );
