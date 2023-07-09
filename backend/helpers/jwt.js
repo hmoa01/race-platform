@@ -1,11 +1,14 @@
-
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require('../config/config');
+const { CustomError } = require('../errorHandler/errors');
 
 module.exports = {
-    currentToken(payload) {
-        return jwt.sign({ payload }, SECRET_KEY , { expiresIn : '1d' } , function(err,token){
-            console.log(token);
-        } )
-    }
-}
+  createToken(payload) {
+    return new Promise((resolve, reject) => {
+      jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' }, (err, token) => {
+        if (err) reject(new CustomError(err.message, 500));
+        resolve(token);
+      });
+    });
+  },
+};

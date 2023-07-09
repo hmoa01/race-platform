@@ -9,13 +9,11 @@ POST http://localhost:4000/auth/register
 Content-Type: application/json
 
 {
-  "firstName": "Zdravko",
-  "lastName": "Ristic",
-  "userName": "zdravko",
-  "email": "zdravkoristic90@gmail.com",
-  "password": "test"
-    
-
+  "firstName": "Ahmed",
+  "lastName": "Lemes",
+  "userName": "hmoa",
+  "email": "hmoa123@gmail.com",
+  "password": "12345"
 }
 
 
@@ -24,8 +22,8 @@ Content-Type: application/json
 POST http://localhost:4000/auth/login
 Content-Type:  application/json
 
-
 {
-    "password": "test",
-    "email": "zdravkoristic90@gmail.com"
+     
+    "userName": "hmoa",
+    "password": "12345"
 }
