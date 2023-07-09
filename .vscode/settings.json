@@ -1,0 +1,16 @@
+{
+  "eslint.enable": true,
+  "eslint.workingDirectories": ["../backend", "../frontend"],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.formatDocument": true,
+    "source.fixAll": true,
+    "source.fixAll.eslint": true
+  },
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 120,
+  "npm.packageManager": "npm"
+}

@@ -1,9 +1,9 @@
-const UserModel = require("../../models/userModel");
+const UserModel = require('../../models/userModel');
 
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const { httpStatus } = require("../../config/httpStatus");
+const { httpStatus } = require('../../config/httpStatus');
 
 const register = async (req, res) => {
   const { userName, password } = req.body;

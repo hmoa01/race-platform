@@ -1,5 +1,4 @@
 const UserModel = require('../../models/userModel');
-const bcrypt = require('bcrypt');
 const { currentToken } = require('../../helpers/jwt');
 const {
   ValidationError,
