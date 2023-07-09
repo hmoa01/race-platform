@@ -1,3 +1,18 @@
+import Navbar from './components/navbar/Navbar';
+import Login from './pages/Login/Login';
+import { Outlet } from 'react-router-dom';
+import axios from 'axios';
+import './App.css';
+
+axios.defaults.baseURL = 'http://localhost:4000/';
+
+function App() {
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Login />
+    </>
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/Login/Login';
@@ -36,6 +51,7 @@ const router = createBrowserRouter([
 
 function App() {
   return <RouterProvider router={router} />;
+
 }
 
 export default App;
