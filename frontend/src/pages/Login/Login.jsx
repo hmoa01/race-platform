@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import userService from '../../services/userServices';
 import { storeUser } from '../../store/userSlice';
-
+import { Link } from 'react-router-dom';
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const dispatch = useDispatch();
@@ -106,11 +106,13 @@ const Login = () => {
                 text="Login"
                 className="flex items-center justify-center h-[40px] w-[100px] lg:h-[50px] lg:w-[180px] rounded-sm bg-[#5ca595] text-[#ffffff] text-[20px]"
               />
-              <Button
-                type="button"
-                text="Sign up"
-                className="flex items-center justify-center h-[40px] w-[100px] lg:h-[50px] lg:w-[180px] rounded-sm border-2 border-solid border-[#5ca595] text-[#5ca595] text-[20px]"
-              />
+              <Link to="/register">
+                <Button
+                  type="button"
+                  text="Sign up"
+                  className="flex items-center justify-center h-[40px] w-[100px] lg:h-[50px] lg:w-[180px] rounded-sm border-2 border-solid border-[#5ca595] text-[#5ca595] text-[20px]"
+                />
+              </Link>
             </div>
           </form>
         </div>
