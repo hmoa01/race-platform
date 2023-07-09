@@ -36,8 +36,6 @@ const login = async (req, res, next) => {
       userName: user.userName,
       role: user.role,
     });
-    console.log('token');
-    console.log(token);
 
     return res.send({ user, token });
   } catch (error) {

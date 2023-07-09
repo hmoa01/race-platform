@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import { Provider } from 'react-redux';
-
-import axios from 'axios';
 import './index.css';
 import store from './store/store.js';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Login from './pages/Login/Login.jsx';
+import Navbar from './components/navbar/Navbar.jsx';
 
-axios.defaults.baseURL = 'http://localhost:4000/';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-    </Provider>
+      <RouterProvider router={router} />
+    <ToastContainer position="top-center" autoClose={1000} />
   </React.StrictMode>
 );

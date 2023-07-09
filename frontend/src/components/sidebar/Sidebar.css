@@ -1,0 +1,7 @@
+.active {
+  background-color: #318270;
+}
+
+.active > div {
+  display: flex;
+}
