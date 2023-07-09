@@ -3,6 +3,7 @@ import { BiSearch } from 'react-icons/bi';
 import { IoNotifications } from 'react-icons/io5';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import Sidebar from '../sidebar/Sidebar';
+import { Outlet } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -21,6 +22,9 @@ const Navbar = () => {
           </div>
           <img alt="profile" src="" className="w-8 h-8 rounded-full mr-2" />
         </div>
+      </div>
+      <div className="ml-[14%]">
+        <Outlet />
       </div>
       <Sidebar />
     </div>

@@ -1,4 +1,4 @@
 const ErrorPage = () => {
-  return <div>This is ErrorPage</div>;
+  return <div></div>;
 };
 export default ErrorPage;

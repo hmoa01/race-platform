@@ -10,7 +10,7 @@ const Sidebar = () => {
       <h2 className="mt-5 text-2xl px-6 text-[#fff]">RACE PLATFORM</h2>
       <div className="absolute top-[70px] w-full">
         <NavLink
-          to="/dashboard"
+          to="/main/dashboard"
           className="text-white text-lg flex gap-2 relative items-center px-6 py-4"
         >
           <div className="w-[7px] h-full hidden absolute left-0 top-0 bg-[#AF9778]"></div>
@@ -20,7 +20,7 @@ const Sidebar = () => {
           </div>
         </NavLink>
         <NavLink
-          to="/register"
+          to="/main/race"
           className="text-white text-lg flex gap-2 relative items-center px-6 py-4"
         >
           <div className="w-[7px] h-full hidden absolute left-0 top-0 bg-[#AF9778]"></div>
@@ -30,7 +30,7 @@ const Sidebar = () => {
           </div>
         </NavLink>
         <NavLink
-          to="/login"
+          to="/main/calendar"
           className="text-white text-lg flex gap-2 relative items-center px-6 py-4"
         >
           <div className="w-[7px] h-full hidden absolute left-0 top-0 bg-[#AF9778]"></div>
