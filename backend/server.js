@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const { PORT, DB_URL } = require('./config/config.js');
 const errorHandler = require('./errorHandler/globalHandler.js');
@@ -13,6 +14,8 @@ mongoose
   });
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 app.use('/', require('./routes/index.js'));

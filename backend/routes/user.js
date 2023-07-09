@@ -1,9 +1,11 @@
 const { Router } = require('express');
-const verifyToken = require('../middleware/middleware');
+const verifyToken = require('../midleware/verifyToken');
 const router = Router();
 
 // GET
 router.get('/', require('../controllers/userControllers/getAllUsers'));
+
+// POST
 
 // PUT
 router.put(
