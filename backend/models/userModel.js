@@ -12,8 +12,9 @@ const UserSchema = new Schema({
     enum: ['superadmin', 'admin', 'user'],
     default: 'user',
   },
+  isEnabled: { type:Boolean, default:false}
 });
 
-const UserModel = model('users', UserSchema);
+const UserModel = model('Users', UserSchema);
 
 module.exports = UserModel;
