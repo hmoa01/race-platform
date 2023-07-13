@@ -15,7 +15,7 @@ const login = async (req, res, next) => {
 
     const user = await UserModel.findOne({ userName }, null, { lean: true });
 
-    console.log(user);
+    
 
     if (!user) {
       throw new NotFoundError('error user dont exist in db');
