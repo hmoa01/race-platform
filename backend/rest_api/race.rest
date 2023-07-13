@@ -1,0 +1,18 @@
+
+
+###  ADD RACE CONTROLLER
+
+POST http://localhost:4000/api/race/add
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGE3Mzk5NzgzNzQ4MTI2Zjg1NTBlODUiLCJmaXJzdE5hbWUiOiJBaG1lZCIsImxhc3ROYW1lIjoiTGVtZXMiLCJ1c2VyTmFtZSI6Imhtb2EiLCJyb2xlIjoidXNlciIsImlhdCI6MTY4OTI1NDA3MywiZXhwIjoxNjg5MzQwNDczfQ.rCUQ6C6p2BU9Iq-msMqN2DY3w3KaEVDHAjWnFUfLI38
+
+{
+    "name": "trka na Tari",
+    "dateOfRace": "2021-10-10",
+    "location": "Tara",
+    "description": "10km",
+    "startTime": "10:00",
+    "endTime": "12:00",
+    "welcomePackage": false
+}
+
