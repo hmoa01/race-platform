@@ -15,6 +15,6 @@ const UserSchema = new Schema({
   isEnabled: { type:Boolean, default:false}
 });
 
-const UserModel = model('Users', UserSchema);
+const UserModel = model('users', UserSchema);
 
 module.exports = UserModel;

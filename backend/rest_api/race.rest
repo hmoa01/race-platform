@@ -1,13 +1,15 @@
+### GET ALL RACES
 
+GET http://localhost:4000/api/race/all
 
 ###  ADD RACE CONTROLLER
 
 POST http://localhost:4000/api/race/add
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGE3Mzk5NzgzNzQ4MTI2Zjg1NTBlODUiLCJmaXJzdE5hbWUiOiJBaG1lZCIsImxhc3ROYW1lIjoiTGVtZXMiLCJ1c2VyTmFtZSI6Imhtb2EiLCJyb2xlIjoidXNlciIsImlhdCI6MTY4OTI1NDA3MywiZXhwIjoxNjg5MzQwNDczfQ.rCUQ6C6p2BU9Iq-msMqN2DY3w3KaEVDHAjWnFUfLI38
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGE3Mzk5NzgzNzQ4MTI2Zjg1NTBlODUiLCJmaXJzdE5hbWUiOiJBaG1lZCIsImxhc3ROYW1lIjoiTGVtZXMiLCJ1c2VyTmFtZSI6Imhtb2EiLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTY4OTM0NDQ5NiwiZXhwIjoxNjg5NDMwODk2fQ.iK7WRDiHLayzj1QvGcKgbByUG-pEjtRIaXlerriAqLI
 
 {
-    "name": "trka na Tari",
+    "name": "trka na Zlatiboru",
     "dateOfRace": "2021-10-10",
     "location": "Tara",
     "description": "10km",
@@ -16,3 +18,12 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGE3Mzk5NzgzNzQ4
     "welcomePackage": false
 }
 
+### EDIT RACE
+
+PUT http://localhost:4000/api/race/64afff0498ae6356280242d4
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGE3Mzk5NzgzNzQ4MTI2Zjg1NTBlODUiLCJmaXJzdE5hbWUiOiJBaG1lZCIsImxhc3ROYW1lIjoiTGVtZXMiLCJ1c2VyTmFtZSI6Imhtb2EiLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTY4OTM0NDQ5NiwiZXhwIjoxNjg5NDMwODk2fQ.iK7WRDiHLayzj1QvGcKgbByUG-pEjtRIaXlerriAqLI
+
+{
+    "name": "izmenjena trka"
+}
