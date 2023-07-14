@@ -1,10 +1,10 @@
 const { Router } = require('express');
 const verifyToken = require('../middleware/middleware');
+const promiseWrapper = require('../middleware/promiseWrapper');
 const router = Router();
 
 // GET
-
-router.get('/', require('../controllers/userControllers/getAllUsers'));
+router.get('/', promiseWrapper(require('../controllers/userControllers/getAllUsers')));
 
 // POST
 
@@ -12,7 +12,7 @@ router.get('/', require('../controllers/userControllers/getAllUsers'));
 router.put(
   '/update/:id',
   verifyToken,
-  require('../controllers/userControllers/updateUser')
+  promiseWrapper(require('../controllers/userControllers/updateUser'))
 );
 
 module.exports = router;

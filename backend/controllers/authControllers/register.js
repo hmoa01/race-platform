@@ -4,12 +4,9 @@ const { httpStatus } = require('../../config/httpStatus');
 const bCryptFunctions = require('../../helpers/bcryptFunctions');
 
 const register = async (req, res) => {
-  console.log('req.body');
-  console.log(req.body);
+
   const { userName, password } = req.body;
 
-  console.log('req.body');
-  console.log(req.body);
   const reqBody = req.body;
 
   let isUserExits = await UserModel.findOne({ userName });
@@ -23,9 +20,6 @@ const register = async (req, res) => {
   let newUser = new UserModel({ ...reqBody, password: hashedPassword });
 
   await newUser.save();
-
-  console.log('newUser');
-  console.log(newUser);
 
   return res.send({ newUser });
 };

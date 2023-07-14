@@ -6,11 +6,12 @@ import { useFormik } from 'formik';
 import userService from '../../services/userServices';
 import { storeUser } from '../../store/userSlice';
 import { Link } from 'react-router-dom';
+
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const dispatch = useDispatch();
 
-  const hanldeRememberMe = () => {
+  const handleRememberMe = () => {
     setRememberMe(true);
   };
 
@@ -32,6 +33,8 @@ const Login = () => {
         dispatch(storeUser(res.data.user));
       } catch (error) {
         console.log(error);
+        error.handleGlobally();
+        // console.log(error);
       }
     },
   });
@@ -88,7 +91,7 @@ const Login = () => {
                   type="checkbox"
                   name="rememberMe"
                   value={rememberMe}
-                  onChange={hanldeRememberMe}
+                  onChange={handleRememberMe}
                   id="rememberMe"
                   className="mr-2"
                 />
