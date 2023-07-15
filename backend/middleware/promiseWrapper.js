@@ -5,4 +5,27 @@ const promiseWrapper = (asyncFn) => {
     asyncFn(req, res, next).catch(next);
   };
 };
-module.exports = promiseWrapper
+module.exports = promiseWrapper 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
