@@ -5,11 +5,13 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import userService from '../../services/userServices';
 import { storeUser } from '../../store/userSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const dispatch = useDispatch();
+  const navigation = useNavigate();
 
   const handleRememberMe = () => {
     setRememberMe(true);
@@ -31,6 +33,10 @@ const Login = () => {
         let res = await userService.loginUser(values);
         localStorage.setItem('rp_token', res.data.token);
         dispatch(storeUser(res.data.user));
+        toast.success('Logged in successfully!');
+        setTimeout(() => {
+          navigation(`/dashboard/${res.data.user.role}`);
+        }, 2000);
       } catch (error) {
         console.log(error);
         error.handleGlobally();

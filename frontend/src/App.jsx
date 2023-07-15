@@ -1,15 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import Login from './pages/Login/Login';
-import StartLayout from './pages/StartLayout/StartLayout';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
-import RegisterPage from './pages/RegisterPage/RegisterPage';
-import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
-import MainLayout from './pages/MainLayout/MainLayout';
-import DashboardPage from './pages/MainLayout/DashboardPage/DashboardPage';
-import RacePage from './pages/MainLayout/RacePage/RacePage';
-import CalendarPage from './pages/CalendarPage/CalendarPage';
 import axios from 'axios';
+import {
+  publicRoutes,
+  adminRoutes,
+  superAdminRoutes,
+  userRoutes,
+} from './routes/routes';
 import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'http://localhost:4000/api';
@@ -38,29 +35,29 @@ axios.interceptors.response.use(undefined, function (error) {
   return Promise.reject(error);
 });
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <StartLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <Login /> },
-      { path: '/register', element: <RegisterPage /> },
-      { path: '/reset', element: <ResetPasswordPage /> },
-    ],
-  },
-  {
-    path: '/main',
-    element: <MainLayout />,
-    children: [
-      { path: '/main/dashboard', element: <DashboardPage /> },
-      { path: '/main/race', element: <RacePage /> },
-      { path: '/main/calendar', element: <CalendarPage /> },
-    ],
-  },
-]);
-
 function App() {
+  let user = JSON.parse(localStorage.getItem('rp_user'));
+
+  const getRoutesByUserRole = () => {
+    if (!user) {
+      return [...publicRoutes];
+    }
+    if (user.role === 'superadmin') {
+      return [...superAdminRoutes];
+    } else if (user.role === 'admin') {
+      return [...adminRoutes];
+    } else {
+      return userRoutes;
+    }
+  };
+
+  let router;
+  if (!user) {
+    router = createBrowserRouter([...publicRoutes]);
+  } else {
+    router = createBrowserRouter([...publicRoutes, ...getRoutesByUserRole()]);
+  }
+
   return <RouterProvider router={router} />;
 }
 
