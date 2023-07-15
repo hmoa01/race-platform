@@ -10,6 +10,6 @@ const RaceSchema = new Schema({
   welcomePackage: { type: Boolean, default: false },
 });
 
-const RaceModel = model('Races', RaceSchema);
+const RaceModel = model('races', RaceSchema);
 
 module.exports = RaceModel;

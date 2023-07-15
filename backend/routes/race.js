@@ -1,11 +1,28 @@
-const { Router } = require('express')
-const router = Router()
-const verifyToken = require('../middleware/middleware.js')
-const promiseWrapper = require('../middleware/promiseWrapper.js')
+const { Router } = require('express');
+const router = Router();
+const verifyToken = require('../middleware/middleware.js');
+const promiseWrapper = require('../middleware/promiseWrapper.js');
 
-// POST 
-router.post('/add', verifyToken, promiseWrapper(require('../controllers/raceControllers/addRaceControllers')))
+// GET
+router.get(
+  '/all',
+  require('../controllers/raceControllers/getAllRaceControllers')
+);
+// POST
+router.post(
+  '/add',
+  verifyToken,
+  promiseWrapper(require('../controllers/raceControllers/addRaceControllers'))
+);
 
+// PUT
 
+router.put(
+  '/:raceId',
+  verifyToken,
+  require('../controllers/raceControllers/editRaceControllers.js')
+);
 
-module.exports = router
+// DELETE
+
+module.exports = router;
