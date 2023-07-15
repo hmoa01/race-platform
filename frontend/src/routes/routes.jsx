@@ -6,6 +6,7 @@ import MainLayout from '../pages/MainLayout/MainLayout';
 import DashboardPage from '../pages/MainLayout/DashboardPage/DashboardPage';
 import RacePage from '../pages/MainLayout/RacePage/RacePage';
 import CalendarPage from '../pages/CalendarPage/CalendarPage';
+import ProtectedRoute from '../ProtectedRoute';
 
 export const publicRoutes = [
   {
@@ -20,7 +21,11 @@ export const publicRoutes = [
 export const userRoutes = [
   {
     path: '/dashboard/user',
-    element: <MainLayout />,
+    element: (
+      <ProtectedRoute user={{ role: 'user' }}>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { path: '/dashboard/user/race', element: <RacePage /> },
       { path: '/dashboard/user/calendar', element: <CalendarPage /> },
@@ -33,7 +38,10 @@ export const adminRoutes = [
     path: '/dashboard/admin',
     element: <MainLayout />,
     children: [
-      { path: '/dashboard/admin/dashboard', element: <DashboardPage /> },
+      {
+        path: '/dashboard/admin/dashboard',
+        element: <DashboardPage />,
+      },
       { path: '/dashboard/admin/race/', element: <RacePage /> },
       { path: '/dashboard/admin/calendar', element: <CalendarPage /> },
     ],
@@ -43,9 +51,16 @@ export const adminRoutes = [
 export const superAdminRoutes = [
   {
     path: '/dashboard/superadmin',
-    element: <MainLayout />,
+    element: (
+      <ProtectedRoute user={{ role: 'superadmin' }}>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
     children: [
-      { path: '/dashboard/superadmin/dashboard', element: <DashboardPage /> },
+      {
+        path: '/dashboard/superadmin/dashboard',
+        element: <DashboardPage />,
+      },
       { path: '/dashboard/superadmin/race', element: <RacePage /> },
       { path: '/dashboard/superadmin/calendar', element: <CalendarPage /> },
     ],

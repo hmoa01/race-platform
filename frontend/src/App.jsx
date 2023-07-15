@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import {
@@ -37,7 +41,6 @@ axios.interceptors.response.use(undefined, function (error) {
 
 function App() {
   let user = JSON.parse(localStorage.getItem('rp_user'));
-
   const getRoutesByUserRole = () => {
     if (!user) {
       return [...publicRoutes];
@@ -50,13 +53,16 @@ function App() {
       return userRoutes;
     }
   };
-
   let router;
-  if (!user) {
-    router = createBrowserRouter([...publicRoutes]);
-  } else {
-    router = createBrowserRouter([...publicRoutes, ...getRoutesByUserRole()]);
-  }
+  // if (!user) {
+  //   router = createBrowserRouter([...publicRoutes]);
+  // } else {
+  router = createBrowserRouter([
+    ...publicRoutes,
+    ...adminRoutes,
+    ...superAdminRoutes,
+  ]); //...getRoutesByUserRole()
+  // }
 
   return <RouterProvider router={router} />;
 }

@@ -46,9 +46,10 @@ const Login = () => {
   });
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('remember'));
-    if (user) {
-      formik.setValues(user);
+    const rememberUser = JSON.parse(localStorage.getItem('remember'));
+
+    if (rememberUser) {
+      formik.setValues(rememberUser);
       setRememberMe(true);
     }
   }, []);
