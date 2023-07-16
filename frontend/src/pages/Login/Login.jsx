@@ -1,12 +1,13 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import racer from '../../assets/racer.png';
+
 import Button from '../../components/button/Button';
+import racer from '../../assets/racer.png';
+import { storeUser } from '../../store/userSlice';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import userService from '../../services/userServices';
-import { storeUser } from '../../store/userSlice';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import userService from '../../services/UserServices';
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -27,25 +28,22 @@ const Login = () => {
 
     onSubmit: async (values) => {
       if (rememberMe) {
-        localStorage.setItem('remember', JSON.stringify(values));
+        userService.setRememberMe();
       }
       try {
         let res = await userService.loginUser(values);
         localStorage.setItem('rp_token', res.data.token);
         dispatch(storeUser(res.data.user));
         toast.success('Logged in successfully!');
-        setTimeout(() => {
-          navigation(`/dashboard`);
-        }, 2000);
+        navigation(`/dashboard`);
       } catch (error) {
         error.handleGlobally();
-        // console.log(error);
       }
     },
   });
 
   useEffect(() => {
-    const rememberUser = JSON.parse(localStorage.getItem('remember'));
+    const rememberUser = userService.getRemember();
 
     if (rememberUser) {
       formik.setValues(rememberUser);
@@ -56,24 +54,13 @@ const Login = () => {
   return (
     <div className="flex flex-col md:flex-row h-screen">
       <div className="hidden md:block md:w-1/2">
-        <img
-          src={racer}
-          alt="image not found"
-          className="h-full w-full object-cover"
-        />
+        <img src={racer} alt="image not found" className="h-full w-full object-cover" />
       </div>
       <div className="lg:w-1/2 pt-[80px] justify-center lg:mt-[5%] lg:p md:w-1/2  flex">
         <div className="lg:w-[80%]">
-          <h2 className="text-2xl text-[#AF9778] text-center">
-            RACE PLATFORMA
-          </h2>
-          <p className="text-16px text-[#A6A7AD] mt-4 text-center">
-            Welcome back! Please Login to your account.
-          </p>
-          <form
-            className="flex flex-col items-center lg:flex mt-6"
-            onSubmit={formik.handleSubmit}
-          >
+          <h2 className="text-2xl text-[#AF9778] text-center">RACE PLATFORMA</h2>
+          <p className="text-16px text-[#A6A7AD] mt-4 text-center">Welcome back! Please Login to your account.</p>
+          <form className="flex flex-col items-center lg:flex mt-6" onSubmit={formik.handleSubmit}>
             <input
               type="text"
               onChange={formik.handleChange}

@@ -1,8 +1,11 @@
-import axios from 'axios';
+import axiosInstance from '../helpers/axiosConfig';
 
-class userService {
-  static loginUser = async (body) => axios.post('/auth/login', body);
-  static registerUser = async (body) => axios.post('/auth/register', body);
+class UserService {
+  static loginUser = async (body) => axiosInstance.post('/auth/login', body);
+  static registerUser = async (body) => axiosInstance.post('/auth/register', body);
+
+  static getRemember = () => JSON.parse(localStorage.getItem('remember'));
+  static setRemember = () => localStorage.setItem('remember', true);
 }
 
-export default userService;
+export default UserService;

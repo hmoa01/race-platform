@@ -10,8 +10,11 @@ const userSlice = createSlice({
       state.user = action.payload;
       localStorage.setItem('rp_user', JSON.stringify(action.payload));
     },
+    restoreUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { storeUser } = userSlice.actions;
+export const { storeUser, restoreUser } = userSlice.actions;
 export default userSlice.reducer;
