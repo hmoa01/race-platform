@@ -1,17 +1,16 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
-import {
-  publicRoutes,
-  adminRoutes,
-  superAdminRoutes,
-  userRoutes,
-} from './routes/routes';
 import { toast } from 'react-toastify';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import RacePage from './pages/RacePage/RacePage';
+import DashboardPage from './pages/DashboardPage/DashboardPage';
+import CalendarPage from './pages/CalendarPage/CalendarPage';
+import Login from './pages/Login/Login';
+import Register from './pages/RegisterPage/RegisterPage';
+import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
+import MainLayout from './components/MainLayout/MainLayout';
+import { isAuth } from './helpers/Auth';
+import AuthGuarding from './helpers/AuthGuardian';
 
 axios.defaults.baseURL = 'http://localhost:4000/api';
 
@@ -40,31 +39,34 @@ axios.interceptors.response.use(undefined, function (error) {
 });
 
 function App() {
-  let user = JSON.parse(localStorage.getItem('rp_user'));
-  const getRoutesByUserRole = () => {
-    if (!user) {
-      return [...publicRoutes];
-    }
-    if (user.role === 'superadmin') {
-      return [...superAdminRoutes];
-    } else if (user.role === 'admin') {
-      return [...adminRoutes];
-    } else {
-      return userRoutes;
-    }
-  };
-  let router;
-  // if (!user) {
-  //   router = createBrowserRouter([...publicRoutes]);
-  // } else {
-  router = createBrowserRouter([
-    ...publicRoutes,
-    ...adminRoutes,
-    ...superAdminRoutes,
-  ]); //...getRoutesByUserRole()
-  // }
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/dashboard/"
+          element={
+            <AuthGuarding>
+              <MainLayout />
+            </AuthGuarding>
+          }
+        >
+          <Route path="/dashboard/" element={<DashboardPage />} />
+          <Route path="/dashboard/race" element={<RacePage />} />
+          <Route path="/dashboard/calendar" element={<CalendarPage />} />
+        </Route>
 
-  return <RouterProvider router={router} />;
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/reset" element={<ResetPasswordPage />} />
+        <Route
+          path="/"
+          element={
+            !isAuth ? <Navigate to="/login" /> : <Navigate to="/dashboard" />
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
