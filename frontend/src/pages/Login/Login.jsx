@@ -35,10 +35,9 @@ const Login = () => {
         dispatch(storeUser(res.data.user));
         toast.success('Logged in successfully!');
         setTimeout(() => {
-          navigation(`/dashboard/${res.data.user.role}`);
+          navigation(`/dashboard`);
         }, 2000);
       } catch (error) {
-        console.log(error);
         error.handleGlobally();
         // console.log(error);
       }
@@ -46,9 +45,10 @@ const Login = () => {
   });
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('remember'));
-    if (user) {
-      formik.setValues(user);
+    const rememberUser = JSON.parse(localStorage.getItem('remember'));
+
+    if (rememberUser) {
+      formik.setValues(rememberUser);
       setRememberMe(true);
     }
   }, []);
