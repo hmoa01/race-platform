@@ -5,8 +5,8 @@ const RaceSchema = new Schema({
   dateOfRace : { type: Date, required: true },
   location: { type: String, required: true },
   description: { type: String, required: true},
-  startTime: { type: String, required: true },   // TODO: change to Date ?
-  endTime: { type: String, required: true },     // TODO: change to Date ?
+  startTime: { type: String, required: true },   
+  endTime: { type: String, required: true },     
   welcomePackage: { type: Boolean, default: false },
 });
 
