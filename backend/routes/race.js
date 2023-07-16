@@ -12,7 +12,7 @@ router.get(
 router.post(
   '/add',
   verifyToken,
-  promiseWrapper(require('../controllers/raceControllers/addRaceControllers'))
+  promiseWrapper(require('../controllers/raceControllers/addRaceControllers.js'))
 );
 
 // PUT
@@ -24,5 +24,8 @@ router.put(
 );
 
 // DELETE
+
+router.delete('/:raceId', verifyToken, promiseWrapper(require ('../controllers/raceControllers/deleteRaceControllers.js')))
+
 
 module.exports = router;
