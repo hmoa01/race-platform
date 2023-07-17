@@ -1,9 +1,19 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const axiosInstance = axios;
+const axiosInstance = axios.create();
 
 axiosInstance.defaults.baseURL = 'http://localhost:4000/api';
+
+axiosInstance.interceptors.request.use((req) => {
+  console.log(req);
+  // eslint-disable-next-line no-prototype-builtins
+  if (!req.headers.hasOwnProperty('authorization')) {
+    req.headers.authorization = localStorage.getItem('rp_token');
+  }
+  req.headers['Content-Type'] = 'Application/json';
+  return req;
+});
 
 // errorComposer will compose a handleGlobally function
 const errorComposer = (error) => {

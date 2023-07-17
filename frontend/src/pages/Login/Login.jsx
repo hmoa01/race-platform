@@ -7,7 +7,7 @@ import { storeUser } from '../../store/userSlice';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import userService from '../../services/UserServices';
+import userService from '../../services/userServices';
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);

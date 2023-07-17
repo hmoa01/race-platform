@@ -1,9 +1,9 @@
-import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { IoNotifications } from 'react-icons/io5';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import Sidebar from '../sidebar/Sidebar';
 import { Outlet } from 'react-router-dom';
+import React from 'react';
+import Sidebar from '../sidebar/Sidebar';
 
 const Navbar = () => {
   return (

@@ -23,15 +23,10 @@ const verifyToken = (req, res, next) => {
           lean: true,
         }); //! PROVERITI ID
 
-    
-
         if (user) {
           let { password, ...thisUser } = user;
           req.locals = Object.assign({}, decoded, thisUser);
 
-          
-
-        
           next();
         } else {
           res

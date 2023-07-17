@@ -12,5 +12,6 @@
   "prettier.semi": true,
   "prettier.singleQuote": true,
   "prettier.printWidth": 140,
-  "npm.packageManager": "npm"
+  "npm.packageManager": "npm",
+  "cSpell.words": ["formik"]
 }
