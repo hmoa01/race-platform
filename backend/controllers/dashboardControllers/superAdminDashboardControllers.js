@@ -10,8 +10,7 @@ const superAdminDashboardControllers = async (req, res) => {
 
     const { userId } = req.params;
     const { role } = req.locals
-    
-    
+
 
         if(role !== 'superadmin') {
          throw new Error('You are not authorized to access this page')

@@ -13,5 +13,11 @@ module.exports = {
       status: 500,
       send: { msg: 'Cannot save user' },
     },
+    
+      USER_ACCESS_GRANTED:{
+        status: 200,
+        send: { msg: 'User access granted' },
+      },
+    
   },
 };

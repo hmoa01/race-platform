@@ -3,6 +3,7 @@ module.exports = {
   userNotExist: 'User does not exist',
   userNotValid: 'User is not valid',
   userNotFound: 'User not found',
+  USER_NOT_AUTHORIZED: 'You are not authorized to assign',
   accessDenied: 'Access denied',
   serverError: 'Server error',
   notFound: 'Not found',

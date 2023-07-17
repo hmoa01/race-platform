@@ -15,6 +15,8 @@ router.post(
   promiseWrapper(require('../controllers/raceControllers/addRaceControllers.js'))
 );
 
+router.post('/assign', verifyToken, promiseWrapper(require('../controllers/raceControllers/assignRaceControllers.js')))
+
 // PUT
 
 router.put(
