@@ -6,11 +6,11 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 
 const CreateRacePage = () => {
-  //  const [welcomePackage, setWelcomePackage] = useState(false);
+  const [welcomePackage, setWelcomePackage] = useState(false);
 
-  //   const handleWelcomePackage = () => {
-  //     setWelcomePackage((prev) => !prev);
-  //   };
+  const handleWelcomePackage = () => {
+    setWelcomePackage((prev) => !prev);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -20,6 +20,7 @@ const CreateRacePage = () => {
       description: '',
       startTime: '',
       endTime: '',
+      welcomePackage: false,
     },
 
     validationSchema: Yup.object({
@@ -34,16 +35,12 @@ const CreateRacePage = () => {
     enableReinitialize: true,
 
     onSubmit: async (values) => {
-      try {
-        let res = await RaceServices.createRace(values);
-        console.log(res.data);
-        if (res.data.status === '200') {
-          toast.success('Race is created!');
-        } else {
-          toast.warning('Something went wrong!');
-        }
-      } catch (error) {
-        error.handleGlobally();
+      let res = await RaceServices.createRace(values);
+      console.log(res);
+      if (res.status === 200) {
+        toast.success('Race is created!');
+      } else {
+        toast.warning('Something went wrong!');
       }
     },
   });
@@ -137,9 +134,10 @@ const CreateRacePage = () => {
         <div className="flex justify-start items-center gap-3">
           <div className="flex">
             <input
+              onClick={handleWelcomePackage}
               type="checkbox"
               name="welcomePackage"
-              value={formik.values.welcomePackage}
+              value={welcomePackage}
               onChange={formik.handleChange}
               id="welcomePackage"
               className="mr-2 cursor-pointer"

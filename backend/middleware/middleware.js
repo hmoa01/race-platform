@@ -24,8 +24,12 @@ const verifyToken = (req, res, next) => {
         }); //! PROVERITI ID
 
         if (user) {
-          let { password, ...thisUser } = user;
-          req.locals = Object.assign({}, decoded, thisUser);
+          req.locals = {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            role: user.role,
+            _id: decoded._id,
+          };
 
           next();
         } else {
