@@ -18,6 +18,12 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGE3Mzk5NzgzNzQ4
     "welcomePackage": false
 }
 
+### ASSIGN ADMIN AND USERS TO RACE
+
+POST http://localhost:4000/api/race/assign
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGE5NmMwOGJlYWNlMWNkYTQzOGVmOWYiLCJmaXJzdE5hbWUiOiJaZHJhdmtvIiwibGFzdE5hbWUiOiJSaXN0aWMiLCJ1c2VyTmFtZSI6InpkcmF2a28iLCJyb2xlIjoic3VwZXJhZG1pbiIsImlhdCI6MTY4OTQ0ODY1MCwiZXhwIjoxNjkyMDQwNjUwfQ.84cfiDeUOxGXb_scLf7tU0gOJGreU4-6hQc6qqds6Bs
+
 ### EDIT RACE
 
 PUT http://localhost:4000/api/race/64afff0498ae6356280242d4
