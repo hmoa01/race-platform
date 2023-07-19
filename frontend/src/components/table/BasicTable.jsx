@@ -6,17 +6,20 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useEffect, useMemo } from 'react';
 
-import { DateTime } from 'luxon';
+import CreateRacePage from '../../pages/CreateRacePage/CreateRacePage';
+import Modal from '../modal/Modal';
 import RaceServices from '../../services/RaceServices';
+import { columns } from './columns';
+import { useEffect } from 'react';
 import { useState } from 'react';
 
 const BasicTable = () => {
+  const [openModal, setOpenModal] = useState(false);
   const [races, setRaces] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    console.log('poziva se');
     RaceServices.getAllRaces()
       .then((res) => {
         setRaces(res.data);
@@ -25,51 +28,8 @@ const BasicTable = () => {
       .catch((error) => error.handleGlobally());
   }, []);
 
-  // const data = useMemo(() => races, []);
   const data = races;
   const [sorting, setSorting] = useState([]);
-
-  const columns = [
-    {
-      header: 'Number',
-    },
-    {
-      header: 'Name',
-      accessorKey: 'name',
-      footer: 'Name',
-    },
-    {
-      header: 'Date Of Race',
-      accessorKey: 'dateOfRace',
-      footer: 'Date Of Race',
-      cell: (info) => DateTime.fromISO(info.getValue()).toLocaleString(DateTime.DATE_MED),
-    },
-    {
-      header: 'Location',
-      accessorKey: 'location',
-      footer: 'Location',
-    },
-    {
-      header: 'Description',
-      accessorKey: 'description',
-      footer: 'Description',
-    },
-    {
-      header: 'Start Time',
-      accessorKey: 'startTime',
-      footer: 'Start Time',
-    },
-    {
-      header: 'End Time',
-      accessorKey: 'endTime',
-      footer: 'End Time',
-    },
-    {
-      header: 'Welcome Package',
-      accessorKey: 'welcomePackage',
-      footer: 'Welcome Package',
-    },
-  ];
 
   const table = useReactTable({
     data,
@@ -85,7 +45,25 @@ const BasicTable = () => {
 
   return (
     <main className=" p-3 grid  place-content-center">
-      <h1 className="text-center text-2xl mb-3">Race calendar</h1>
+      <h1 className="text-center text-2xl mb-3">Races</h1>
+      <div className="flex justify-between">
+        <button
+          className="bg-[rgb(51,161,15)] p-4  border border-[#5A9B8D] text-white"
+          onClick={() => setOpenModal(true)}
+        >
+          Add
+        </button>
+
+        <div className="mb-3">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search..."
+            className="p-2 border rounded-md"
+          />
+        </div>
+      </div>
       <table>
         {/* Heder of table */}
         <thead>
@@ -112,6 +90,9 @@ const BasicTable = () => {
                     </th>
                   );
                 })}
+                <th className=" p-4 bg-[#5A9B8D] text-center border border-[#7DB6AA] text-white cursor-pointer hover:bg-[#44796d] transition-all duration-200">
+                  Actions
+                </th>
               </tr>
             );
           })}
@@ -129,6 +110,8 @@ const BasicTable = () => {
                     </td>
                   );
                 })}
+                <button className="bg-[#f4a812] p-4  border border-[#5A9B8D] text-white ">Edit</button>
+                <button className="bg-[#f51810] p-4  border border-[#5A9B8D] text-white ">Delete</button>
               </tr>
             );
           })}
@@ -172,6 +155,9 @@ const BasicTable = () => {
           </button>
         </div>
       </table>
+      <Modal open={openModal}>
+        <CreateRacePage />
+      </Modal>
     </main>
   );
 };

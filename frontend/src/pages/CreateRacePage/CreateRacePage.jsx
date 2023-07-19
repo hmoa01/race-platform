@@ -48,7 +48,7 @@ const CreateRacePage = () => {
   const showError = (name) => formik.errors[name] && formik.touched[name] && formik.errors[name];
 
   return (
-    <div className="lg:w-[80%] mt-4">
+    <div className="mt-50">
       <h2 className="text-xl text-[#AF9778] text-center">CREATE RACE</h2>
       <p className="text-16px text-[#A6A7AD] mt-2 text-center">Please complete to create race.</p>
       <form className="flex flex-col items-center lg:flex mt-3 gap-2" onSubmit={formik.handleSubmit}>
