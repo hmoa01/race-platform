@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-table';
 
 import CreateRacePage from '../../pages/CreateRacePage/CreateRacePage';
+import EditRacePage from '../../pages/EditRacePage/EditRacePage';
 import Modal from '../modal/Modal';
 import RaceServices from '../../services/RaceServices';
 import { columns } from './columns';
@@ -16,6 +17,8 @@ import { useState } from 'react';
 
 const BasicTable = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [raceId, setRaceId] = useState('');
+  const [editModal, setEditModal] = useState(false);
   const [races, setRaces] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -43,13 +46,21 @@ const BasicTable = () => {
     onSortingChange: setSorting,
   });
 
+  const handleId = (id) => {
+    setRaceId(id);
+    setOpenModal(true);
+  };
+
   return (
     <main className=" p-3 grid  place-content-center">
       <h1 className="text-center text-2xl mb-3">Races</h1>
       <div className="flex justify-between">
         <button
           className="bg-[rgb(51,161,15)] p-4  border border-[#5A9B8D] text-white"
-          onClick={() => setOpenModal(true)}
+          onClick={() => {
+            setOpenModal(true);
+            setEditModal(false);
+          }}
         >
           Add
         </button>
@@ -74,7 +85,7 @@ const BasicTable = () => {
                   return (
                     <th
                       key={header.id}
-                      className="text-start p-4 bg-[#5A9B8D] border border-[#7DB6AA] text-white cursor-pointer hover:bg-[#44796d] transition-all duration-200"
+                      className="textconsole.log(id);-start p-4 bg-[#5A9B8D] border border-[#7DB6AA] text-white cursor-pointer hover:bg-[#44796d] transition-all duration-200"
                       onClick={header.column.getToggleSortingHandler()}
                     >
                       <div className="flex gap-3">
@@ -95,12 +106,13 @@ const BasicTable = () => {
                 </th>
               </tr>
             );
-          })}
+          })}{' '}
         </thead>
 
         {/* Body (data) of table */}
         <tbody>
           {table.getRowModel().rows.map((row) => {
+            const raceId = row.id;
             return (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => {
@@ -110,7 +122,15 @@ const BasicTable = () => {
                     </td>
                   );
                 })}
-                <button className="bg-[#f4a812] p-4  border border-[#5A9B8D] text-white ">Edit</button>
+                <button
+                  onClick={() => {
+                    handleId(raceId);
+                    setEditModal(true);
+                  }}
+                  className="bg-[#f4a812] p-4  border border-[#5A9B8D] text-white "
+                >
+                  Edit
+                </button>
                 <button className="bg-[#f51810] p-4  border border-[#5A9B8D] text-white ">Delete</button>
               </tr>
             );
@@ -155,8 +175,8 @@ const BasicTable = () => {
           </button>
         </div>
       </table>
-      <Modal open={openModal}>
-        <CreateRacePage />
+      <Modal open={openModal} close={() => setOpenModal(false)} className="relative">
+        {editModal ? <EditRacePage id={raceId} /> : <CreateRacePage />}
       </Modal>
     </main>
   );

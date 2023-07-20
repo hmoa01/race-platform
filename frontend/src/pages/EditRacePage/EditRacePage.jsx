@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 
-const CreateRacePage = () => {
+const EditRacePage = ({ id }) => {
   const [welcomePackage, setWelcomePackage] = useState(false);
 
   const handleWelcomePackage = () => {
@@ -94,7 +94,7 @@ const CreateRacePage = () => {
         </div>
         <div className="flex w-full flex-col  items-center gap-3">
           <label>
-            Description <span className="w-full text-[14px] text-red-600">{showError('description')}</span>
+            CREATE Description <span className="w-full text-[14px] text-red-600">{showError('description')}</span>
           </label>
           <input
             type="text"
@@ -152,11 +152,11 @@ const CreateRacePage = () => {
           type="submit"
           className="text-[20px] border border-[#8281aa] rounded-md p-1 text-[#AF9778] bottom-[30px]  cursor-pointer my-2 hover:text-violet-300 hover:transition-all hover:duration-300"
         >
-          CREATE RACE
+          Edit RACE
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateRacePage;
+export default EditRacePage;
