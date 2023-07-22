@@ -28,7 +28,7 @@ const Login = () => {
 
     onSubmit: async (values) => {
       if (rememberMe) {
-        userService.setRememberMe();
+        localStorage.setItem('remember', JSON.stringify(values));
       }
       try {
         let res = await userService.loginUser(values);
@@ -43,7 +43,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    const rememberUser = userService.getRemember();
+    const rememberUser = JSON.parse(localStorage.getItem('remember'));
 
     if (rememberUser) {
       formik.setValues(rememberUser);

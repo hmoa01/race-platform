@@ -8,11 +8,20 @@ router.get(
   '/all',
   require('../controllers/raceControllers/getAllRaceControllers')
 );
+
+router.get(
+  '/:raceId',
+  verifyToken,
+  require('../controllers/raceControllers/getSingleRace.js')
+);
+
 // POST
 router.post(
   '/add',
   verifyToken,
-  promiseWrapper(require('../controllers/raceControllers/addRaceControllers.js'))
+  promiseWrapper(
+    require('../controllers/raceControllers/addRaceControllers.js')
+  )
 );
 
 router.post('/assign', verifyToken, promiseWrapper(require('../controllers/raceControllers/assignRaceControllers.js')))
@@ -27,7 +36,12 @@ router.put(
 
 // DELETE
 
-router.delete('/:raceId', verifyToken, promiseWrapper(require ('../controllers/raceControllers/deleteRaceControllers.js')))
-
+router.delete(
+  '/:raceId',
+  verifyToken,
+  promiseWrapper(
+    require('../controllers/raceControllers/deleteRaceControllers.js')
+  )
+);
 
 module.exports = router;
