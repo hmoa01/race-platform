@@ -1,12 +1,15 @@
 import * as Yup from 'yup';
 
 import RaceServices from '../../services/RaceServices';
+import { tableChanges } from '../../store/raceSlice';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 
-const CreateRacePage = () => {
+const CreateRacePage = ({ setOpenModal }) => {
   const [welcomePackage, setWelcomePackage] = useState(false);
+  const dispatch = useDispatch();
 
   const handleWelcomePackage = () => {
     setWelcomePackage((prev) => !prev);
@@ -39,6 +42,8 @@ const CreateRacePage = () => {
       console.log(res);
       if (res.status === 200) {
         toast.success('Race is created!');
+        dispatch(tableChanges());
+        setOpenModal(false);
       } else {
         toast.warning('Something went wrong!');
       }
@@ -48,7 +53,7 @@ const CreateRacePage = () => {
   const showError = (name) => formik.errors[name] && formik.touched[name] && formik.errors[name];
 
   return (
-    <div className="mt-50 bg-[#5A9B8D]">
+    <div className=" bg-[#5A9B8D]">
       <h2 className="text-xl text-[#AF9778] text-center">CREATE RACE</h2>
       <p className="text-16px text-[#A6A7AD] mt-2 text-center">Please complete to create race.</p>
       <form className="flex flex-col items-center lg:flex mt-3 gap-2" onSubmit={formik.handleSubmit}>

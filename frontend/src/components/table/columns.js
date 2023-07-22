@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import moment from 'moment';
 
 export const columns = [
   {
@@ -10,7 +10,7 @@ export const columns = [
     header: 'Date Of Race',
     accessorKey: 'dateOfRace',
     footer: 'Date Of Race',
-    cell: (info) => DateTime.fromISO(info.getValue()).toLocaleString(DateTime.DATE_MED),
+    cell: (info) => moment(info.getValue()).format('YYYY-MM-DD'),
   },
   {
     header: 'Location',

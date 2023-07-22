@@ -1,26 +1,34 @@
 import * as Yup from 'yup';
 
+import { useEffect, useState } from 'react';
+
 import RaceServices from '../../services/RaceServices';
+import moment from 'moment';
+import { tableChanges } from '../../store/raceSlice';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import { useState } from 'react';
 
-const EditRacePage = ({ id }) => {
-  const [welcomePackage, setWelcomePackage] = useState(false);
+const EditRacePage = ({ id, setOpenModal }) => {
+  const [race, setRace] = useState({});
+  const dispatch = useDispatch();
 
-  const handleWelcomePackage = () => {
-    setWelcomePackage((prev) => !prev);
-  };
+  useEffect(() => {
+    RaceServices.getSingleRace(id).then((res) => {
+      setRace(res.data);
+      console.log(race);
+    });
+  }, []);
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      dateOfRace: '',
-      location: '',
-      description: '',
-      startTime: '',
-      endTime: '',
-      welcomePackage: false,
+      name: race.name || '',
+      dateOfRace: moment(race.dateOfRace).format('YYYY-MM-DD') || '',
+      location: race.location || '',
+      description: race.description || '',
+      startTime: race.startTime || '',
+      endTime: race.endTime || '',
+      welcomePackage: race.welcomePackage || false,
     },
 
     validationSchema: Yup.object({
@@ -35,10 +43,12 @@ const EditRacePage = ({ id }) => {
     enableReinitialize: true,
 
     onSubmit: async (values) => {
-      let res = await RaceServices.createRace(values);
-      console.log(res);
+      let res = await RaceServices.editRace(id, values);
+
       if (res.status === 200) {
-        toast.success('Race is created!');
+        toast.success('Race is edited!!');
+        dispatch(tableChanges());
+        setOpenModal(false);
       } else {
         toast.warning('Something went wrong!');
       }
@@ -49,7 +59,7 @@ const EditRacePage = ({ id }) => {
 
   return (
     <div className="mt-50 bg-[#5A9B8D]">
-      <h2 className="text-xl text-[#AF9778] text-center">CREATE RACE</h2>
+      <h2 className="text-xl text-[#AF9778] text-center">EDIT RACE</h2>
       <p className="text-16px text-[#A6A7AD] mt-2 text-center">Please complete to create race.</p>
       <form className="flex flex-col items-center lg:flex mt-3 gap-2" onSubmit={formik.handleSubmit}>
         <div className="flex flex-col w-full items-center gap-1">
@@ -94,7 +104,7 @@ const EditRacePage = ({ id }) => {
         </div>
         <div className="flex w-full flex-col  items-center gap-3">
           <label>
-            CREATE Description <span className="w-full text-[14px] text-red-600">{showError('description')}</span>
+            Description <span className="w-full text-[14px] text-red-600">{showError('description')}</span>
           </label>
           <input
             type="text"
@@ -134,10 +144,10 @@ const EditRacePage = ({ id }) => {
         <div className="flex justify-start items-center gap-3">
           <div className="flex">
             <input
-              onClick={handleWelcomePackage}
+              checked={formik.values.welcomePackage}
               type="checkbox"
               name="welcomePackage"
-              value={welcomePackage}
+              value={formik.values.welcomePackage}
               onChange={formik.handleChange}
               id="welcomePackage"
               className="mr-2 cursor-pointer"
