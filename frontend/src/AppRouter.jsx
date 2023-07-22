@@ -2,6 +2,7 @@ import { Navigate, createBrowserRouter } from 'react-router-dom';
 
 import AuthGuarding from './helpers/AuthGuardian';
 import CalendarPage from './pages/CalendarPage/CalendarPage';
+import ContestantsPage from './pages/ContestantsPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import Login from './pages/Login/Login';
 import MainLayout from './components/MainLayout/MainLayout';
@@ -23,6 +24,7 @@ const AppRouter = () => {
       children: [
         { path: '/dashboard', element: <DashboardPage />, index: 0 },
         { path: '/dashboard/race', element: <RacePage /> },
+        { path: '/dashboard/contestants', element: <ContestantsPage /> },
         { path: '/dashboard/calendar', element: <CalendarPage /> },
       ],
     },

@@ -26,6 +26,16 @@ const Sidebar = () => {
             Race
           </div>
         </NavLink>
+        <NavLink
+          to={`/dashboard/contestants/`}
+          className="text-white text-lg flex gap-2 relative items-center px-6 py-4"
+        >
+          <div className="w-[7px] h-full hidden absolute left-0 top-0 bg-[#AF9778]"></div>
+          <div className="flex gap-2 items-center w-full">
+            <RiBarChartFill />
+            Contestants
+          </div>
+        </NavLink>
         <NavLink to={`/dashboard/calendar/`} className="text-white text-lg flex gap-2 relative items-center px-6 py-4">
           <div className="w-[7px] h-full hidden absolute left-0 top-0 bg-[#AF9778]"></div>
           <div className="flex gap-2 items-center w-full">
