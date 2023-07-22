@@ -6,7 +6,7 @@ const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!Object.prototype.hasOwnProperty.call(req.headers, 'authorization')) {
-    return res.status(500).send({ msg: 'token doestn exist' });
+    return res.status(401).send({ msg: 'token doestn exist' });
   }
 
   jwt.verify(token, SECRET_KEY, async (err, decoded) => {
@@ -23,15 +23,14 @@ const verifyToken = (req, res, next) => {
           lean: true,
         }); //! PROVERITI ID
 
-    
+
 
         if (user) {
           let { password, ...thisUser } = user;
           req.locals = Object.assign({}, decoded, thisUser);
 
-          
 
-        
+
           next();
         } else {
           res

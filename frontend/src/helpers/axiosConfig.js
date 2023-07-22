@@ -5,8 +5,12 @@ const axiosInstance = axios;
 
 axiosInstance.defaults.baseURL = 'http://localhost:4000/api';
 
+axiosInstance.defaults.headers['authorization'] = localStorage.getItem('rp_token');
+
 // errorComposer will compose a handleGlobally function
 const errorComposer = (error) => {
+  console.log('error.code');
+  console.log(error.code);
   return () => {
     const statusCode = error.response ? error.response.status : null;
     if (statusCode === 404) {

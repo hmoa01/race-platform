@@ -28,7 +28,7 @@ const Login = () => {
 
     onSubmit: async (values) => {
       if (rememberMe) {
-        userService.setRememberMe();
+        userService.setRemember(values);
       }
       try {
         let res = await userService.loginUser(values);
