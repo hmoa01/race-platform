@@ -1,10 +1,8 @@
 const RaceModel = require('../../models/raceModel');
 
 const getSingleRace = async (req, res) => {
-  const { id } = req.params;
-  const race = await RaceModel.findById(id, null, { lean: true });
-  console.log(race);
-
+  const { raceId } = req.params;
+  const race = await RaceModel.findById(raceId, null, { lean: true });
   res.send(race);
 };
 

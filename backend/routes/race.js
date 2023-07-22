@@ -3,16 +3,16 @@ const router = Router();
 const verifyToken = require('../middleware/middleware.js');
 const promiseWrapper = require('../middleware/promiseWrapper.js');
 
-router.get(
-  '/:raceId',
-  verifyToken,
-  require('../controllers/raceControllers/getSingleRace.js')
-);
-
 // GET
 router.get(
   '/all',
   require('../controllers/raceControllers/getAllRaceControllers')
+);
+
+router.get(
+  '/:raceId',
+  verifyToken,
+  require('../controllers/raceControllers/getSingleRace.js')
 );
 
 // POST
