@@ -43,7 +43,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    const rememberUser = userService.getRemember();
+    const rememberUser = JSON.parse(localStorage.getItem('remember'));
 
     if (rememberUser) {
       formik.setValues(rememberUser);

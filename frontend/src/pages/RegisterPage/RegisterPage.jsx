@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import racer from '../../assets/racer.png';
-import Button from '../../components/button/Button';
-import { useFormik } from 'formik';
-import userService from '../../services/userServices';
-import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
+
+import { Link, useNavigate } from 'react-router-dom';
 import { PiEyeBold, PiEyeClosedBold } from 'react-icons/pi';
+
+import Button from '../../components/button/Button';
+import racer from '../../assets/racer.png';
+import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import userService from '../../services/userServices';
 
 const Register = () => {
   const [agree, setAgree] = useState(false);
@@ -50,50 +52,36 @@ const Register = () => {
     enableReinitialize: true,
 
     onSubmit: async (values) => {
-      try {
-        let res = await userService.registerUser(values);
-        if (res.status === 200) {
-          toast.success('Registration successful', { autoClose: 1000 });
-          setTimeout(() => navigate('/'), 2000);
-        } else {
-          toast.warning('User already registered', { autoClose: 1000 });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      formik.resetForm();
+      userService
+        .registerUser(values)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            toast.success('Registration successful', { autoClose: 1000 });
+            setTimeout(() => navigate('/'), 2000);
+          } else {
+            toast.warning('User already registered', { autoClose: 1000 });
+          }
+        })
+        .catch((error) => console.log(error));
     },
   });
 
-  const showError = (name) =>
-    formik.errors[name] && formik.touched[name] && formik.errors[name];
+  const showError = (name) => formik.errors[name] && formik.touched[name] && formik.errors[name];
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
       <div className="hidden md:block md:w-1/2">
-        <img
-          src={racer}
-          alt="image not found"
-          className="h-full w-full object-cover"
-        />
+        <img src={racer} alt="image not found" className="h-full w-full object-cover" />
       </div>
       <div className="lg:w-1/2 pt-[80px] justify-center lg:mt-[5%] lg:p md:w-1/2  flex">
         <div className="lg:w-[80%]">
-          <h2 className="text-2xl text-[#AF9778] text-center">
-            RACE PLATFORMA
-          </h2>
-          <p className="text-16px text-[#A6A7AD] mt-4 text-center">
-            Please complete to create your account.
-          </p>
-          <form
-            className="flex flex-col items-center lg:flex mt-6"
-            onSubmit={formik.handleSubmit}
-          >
+          <h2 className="text-2xl text-[#AF9778] text-center">RACE PLATFORMA</h2>
+          <p className="text-16px text-[#A6A7AD] mt-4 text-center">Please complete to create your account.</p>
+          <form className="flex flex-col items-center lg:flex mt-6" onSubmit={formik.handleSubmit}>
             <div className="w-[80%] lg:flex lg:gap-8">
               <div className="w-full">
-                <p className="w-full text-[14px] text-red-600">
-                  {showError('firstName')}
-                </p>
+                <p className="w-full text-[14px] text-red-600">{showError('firstName')}</p>
                 <input
                   type="text"
                   onChange={formik.handleChange}
@@ -104,9 +92,7 @@ const Register = () => {
                 />
               </div>
               <div className="w-full">
-                <p className="w-full text-[14px] text-red-600">
-                  {showError('lastName')}
-                </p>
+                <p className="w-full text-[14px] text-red-600">{showError('lastName')}</p>
                 <input
                   type="text"
                   onChange={formik.handleChange}
@@ -118,9 +104,7 @@ const Register = () => {
               </div>
             </div>
             <div className="w-full text-center ">
-              <p className="w-full text-[14px] text-red-600">
-                {showError('userName')}
-              </p>
+              <p className="w-full text-[14px] text-red-600">{showError('userName')}</p>
               <input
                 type="text"
                 onChange={formik.handleChange}
@@ -131,9 +115,7 @@ const Register = () => {
               />
             </div>
             <div className="w-full text-center ">
-              <p className="w-full text-[14px] text-red-600">
-                {showError('email')}
-              </p>
+              <p className="w-full text-[14px] text-red-600">{showError('email')}</p>
               <input
                 type="email"
                 onChange={formik.handleChange}
@@ -144,9 +126,7 @@ const Register = () => {
               />
             </div>
             <div className="relative w-full text-center ">
-              <p className="w-full text-[14px] text-red-600">
-                {showError('password')}
-              </p>
+              <p className="w-full text-[14px] text-red-600">{showError('password')}</p>
               <input
                 type={`${viewPass ? 'password' : 'text'}`}
                 name="password"
@@ -164,9 +144,7 @@ const Register = () => {
               </button>
             </div>
             <div className="relative w-full text-center ">
-              <p className="w-full text-[14px] text-red-600">
-                {showError('confirmPassword')}
-              </p>
+              <p className="w-full text-[14px] text-red-600">{showError('confirmPassword')}</p>
               <input
                 type={`${viewComfPass ? 'password' : 'text'}`}
                 name="confirmPassword"
@@ -195,9 +173,7 @@ const Register = () => {
                   className="mr-2 cursor-pointer"
                 />
                 <label className="flex ">
-                  <span className="text-[#43425D]">
-                    I agree with terms and conditions
-                  </span>
+                  <span className="text-[#43425D]">I agree with terms and conditions</span>
                 </label>
               </div>
             </div>
@@ -221,9 +197,7 @@ const Register = () => {
             <p className="w-80%">
               Already have an account ?{' '}
               <Link to="/">
-                <span className="underline text-blue-600 hover:text-blue-800 transition-all duration-300">
-                  Sign in
-                </span>
+                <span className="underline text-blue-600 hover:text-blue-800 transition-all duration-300">Sign in</span>
               </Link>
             </p>
           </div>

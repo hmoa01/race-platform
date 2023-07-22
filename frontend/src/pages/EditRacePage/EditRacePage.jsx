@@ -1,0 +1,172 @@
+import * as Yup from 'yup';
+
+import { useEffect, useState } from 'react';
+
+import RaceServices from '../../services/RaceServices';
+import moment from 'moment';
+import { tableChanges } from '../../store/raceSlice';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+
+const EditRacePage = ({ id, setOpenModal }) => {
+  const [race, setRace] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    RaceServices.getSingleRace(id).then((res) => {
+      setRace(res.data);
+      console.log(race);
+    });
+  }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      name: race.name || '',
+      dateOfRace: moment(race.dateOfRace).format('YYYY-MM-DD') || '',
+      location: race.location || '',
+      description: race.description || '',
+      startTime: race.startTime || '',
+      endTime: race.endTime || '',
+      welcomePackage: race.welcomePackage || false,
+    },
+
+    validationSchema: Yup.object({
+      name: Yup.string().required('Race name is required'),
+      dateOfRace: Yup.date().required('Date of race is required'),
+      location: Yup.string().required('Location is required'),
+      description: Yup.string().required('Description is required'),
+      startTime: Yup.string().required('Start time is required'),
+      endTime: Yup.string().required('End time is required'),
+    }),
+
+    enableReinitialize: true,
+
+    onSubmit: async (values) => {
+      let res = await RaceServices.editRace(id, values);
+
+      if (res.status === 200) {
+        toast.success('Race is edited!!');
+        dispatch(tableChanges());
+        setOpenModal(false);
+      } else {
+        toast.warning('Something went wrong!');
+      }
+    },
+  });
+
+  const showError = (name) => formik.errors[name] && formik.touched[name] && formik.errors[name];
+
+  return (
+    <div className="mt-50 bg-[#5A9B8D]">
+      <h2 className="text-xl text-[#AF9778] text-center">EDIT RACE</h2>
+      <p className="text-16px text-[#A6A7AD] mt-2 text-center">Please complete to create race.</p>
+      <form className="flex flex-col items-center lg:flex mt-3 gap-2" onSubmit={formik.handleSubmit}>
+        <div className="flex flex-col w-full items-center gap-1">
+          <label>
+            Race name <span className="w-full text-[14px] text-red-600">{showError('name')}</span>
+          </label>
+
+          <input
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+            name="name"
+            className="placeholder:text-[#43425D] p-[5px] border-b-2 w-[70%]  focus:border-[#43425D] outline-none"
+            placeholder="Race name"
+          />
+        </div>
+        <div className="flex w-full flex-col  items-center gap-1">
+          <label>
+            Date of race <span className="w-full text-[14px] text-red-600">{showError('dateOfRace')}</span>
+          </label>
+          <input
+            type="date"
+            onChange={formik.handleChange}
+            value={formik.values.dateOfRace}
+            name="dateOfRace"
+            className="placeholder:text-[#43425D] p-[5px] border-b-2 w-[70%] focus:border-[#43425D] outline-none"
+            placeholder="Date of race"
+          />
+        </div>
+        <div className="flex w-full flex-col  items-center gap-3">
+          <label>
+            Location <span className="w-full text-[14px] text-red-600">{showError('location')}</span>
+          </label>
+          <input
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.location}
+            name="location"
+            className="placeholder:text-[#43425D] p-[5px] border-b-2  w-[70%]  focus:border-[#43425D] outline-none"
+            placeholder="Location"
+          />
+        </div>
+        <div className="flex w-full flex-col  items-center gap-3">
+          <label>
+            Description <span className="w-full text-[14px] text-red-600">{showError('description')}</span>
+          </label>
+          <input
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.description}
+            name="description"
+            className="placeholder:text-[#43425D] p-[5px] border-b-2  w-[70%]  focus:border-[#43425D] outline-none"
+            placeholder="Description"
+          />
+        </div>
+        <div className="flex w-full flex-col  items-center gap-3">
+          <label>
+            Start time <span className="w-full text-[14px] text-red-600">{showError('startTime')}</span>
+          </label>
+          <input
+            type="text"
+            name="startTime"
+            value={formik.values.startTime}
+            onChange={formik.handleChange}
+            className="placeholder:text-[#43425D] p-[5px]  border-b-2 w-[70%]  focus:border-[#43425D] outline-none"
+            placeholder="Start time"
+          />
+        </div>
+        <div className="flex w-full flex-col  items-center gap-3">
+          <label>
+            End time <span className="w-full text-[14px] text-red-600">{showError('endTime')}</span>
+          </label>
+          <input
+            type="text"
+            name="endTime"
+            value={formik.values.endTime}
+            onChange={formik.handleChange}
+            className="placeholder:text-[#43425D] p-[5px]  border-b-2 w-[70%]  focus:border-[#43425D] outline-none"
+            placeholder="End time"
+          />
+        </div>
+        <div className="flex justify-start items-center gap-3">
+          <div className="flex">
+            <input
+              checked={formik.values.welcomePackage}
+              type="checkbox"
+              name="welcomePackage"
+              value={formik.values.welcomePackage}
+              onChange={formik.handleChange}
+              id="welcomePackage"
+              className="mr-2 cursor-pointer"
+            />
+            <label className="flex ">
+              <span className="text-[#43425D]">Welcome package</span>
+            </label>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className="text-[20px] border border-[#8281aa] rounded-md p-1 text-[#AF9778] bottom-[30px]  cursor-pointer my-2 hover:text-violet-300 hover:transition-all hover:duration-300"
+        >
+          Edit RACE
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default EditRacePage;
