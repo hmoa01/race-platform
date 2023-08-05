@@ -1,7 +1,10 @@
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import Button from '../../components/button/Button';
+import { FcGoogle } from 'react-icons/fc';
+import UserService from '../../services/userServices';
 import racer from '../../assets/racer.png';
 import { storeUser } from '../../store/userSlice';
 import { toast } from 'react-toastify';
@@ -15,7 +18,7 @@ const Login = () => {
   const navigation = useNavigate();
 
   const handleRememberMe = () => {
-    setRememberMe(true);
+    setRememberMe(!rememberMe);
   };
 
   const formik = useFormik({
@@ -51,6 +54,20 @@ const Login = () => {
     }
   }, []);
 
+  const handleGoogleLogin = async (body) => {
+    try {
+      let res = await UserService.loginWithGoogle(body);
+      let { ...user } = res.data.user;
+      let newUser = user;
+      localStorage.setItem('rp_token', res.data.token);
+      dispatch(storeUser(newUser));
+      toast.success('Logged in successfully!');
+      navigation(`/dashboard`);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <div className="flex flex-col md:flex-row h-screen">
       <div className="hidden md:block md:w-1/2">
@@ -85,6 +102,7 @@ const Login = () => {
                   name="rememberMe"
                   value={rememberMe}
                   onChange={handleRememberMe}
+                  onSelect={() => handleRememberMe}
                   id="rememberMe"
                   className="mr-2"
                 />
@@ -111,6 +129,15 @@ const Login = () => {
               </Link>
             </div>
           </form>
+
+          <div className="w-full flex justify-center">
+            <GoogleOAuthProvider clientId="809946617269-lheck7cnr8m5l2pnaerju8hfkfs8djjr.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={(credentialResponse) => handleGoogleLogin({ token: credentialResponse.credential })}
+                onError={(error) => console.log(error)}
+              />
+            </GoogleOAuthProvider>
+          </div>
         </div>
       </div>
     </div>

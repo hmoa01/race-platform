@@ -13,7 +13,7 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
-      <AppRouter></AppRouter>
+      <AppRouter></AppRouter>;
     </BrowserRouter>
   );
 }
