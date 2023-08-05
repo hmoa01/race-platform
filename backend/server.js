@@ -18,9 +18,9 @@ const app = express();
 
 app.use(cors());
 
-app.use(requestLogger)
-
+app.use(requestLogger);
 app.use(express.json());
+
 app.use('/api', require('./routes/index.js'));
 app.use(errorHandler);
 
