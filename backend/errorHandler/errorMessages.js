@@ -17,4 +17,5 @@ module.exports = {
   conflict: 'Conflict',
   unprocessable: 'Unprocessable entity',
   limitExceeded: 'Limit exceeded',
+  passwordIsRequired: 'Password is required',
 };

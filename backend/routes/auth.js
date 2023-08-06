@@ -11,4 +11,15 @@ router.post(
   promiseWrapper(require('../controllers/authControllers/login'))
 );
 
+//RESET PASSWORD
+router.post(
+  '/forget-password',
+  promiseWrapper(require('../controllers/authControllers/forgetPassword'))
+);
+
+router.post(
+  '/reset-password',
+  promiseWrapper(require('../controllers/authControllers/resetPassword'))
+);
+
 module.exports = router;

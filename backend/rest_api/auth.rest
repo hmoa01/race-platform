@@ -25,5 +25,23 @@ Content-Type:  application/json
 {
      
     "userName": "hmoa",
-    "password": "12345"
+    "password": "test"
+}
+
+### FORGET PASSWORD 
+POST http://localhost:4000/api/auth/forget-password
+Content-Type: application/json
+
+{
+  "email": "hmoa01@gmail.com"
+
+}
+
+### RESET PASSWORD 
+POST http://localhost:4000/api/auth/reset-password
+Content-Type: application/json
+
+{
+  "newPassword" : "test",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGE3Mzk5NzgzNzQ4MTI2Zjg1NTBlODUiLCJlbWFpbCI6Imhtb2EwMUBnbWFpbC5jb20iLCJpYXQiOjE2OTEzMTU4NTcsImV4cCI6MTY5MTMxOTQ1N30.yJKH86B2oLQkH9_dj5T2sQ4maXnKRM_sYdG0LWUP4t0"
 }
