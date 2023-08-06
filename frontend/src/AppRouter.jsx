@@ -3,6 +3,7 @@ import { Navigate, createBrowserRouter } from 'react-router-dom';
 import AuthGuarding from './helpers/AuthGuardian';
 import CalendarPage from './pages/CalendarPage/CalendarPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
+import ForgetPasswordPage from './pages/ForgetPasswordPage/ForgetPasswordPage';
 import Login from './pages/Login/Login';
 import MainLayout from './components/MainLayout/MainLayout';
 import RacePage from './pages/RacePage/RacePage';
@@ -35,7 +36,11 @@ const AppRouter = () => {
       element: <Register />,
     },
     {
-      path: '/reset',
+      path: '/forget-password',
+      element: <ForgetPasswordPage />,
+    },
+    {
+      path: '/reset-password',
       element: <ResetPasswordPage />,
     },
   ]);

@@ -111,7 +111,9 @@ const Login = () => {
                 </label>
               </div>
               <div>
-                <button className="text-[#43425D]">Forgot Password</button>
+                <Link to="/forget-password" className="text-[#43425D]">
+                  Forgot Password
+                </Link>
               </div>
             </div>
             <div className="mt-[40px] flex justify-between w-[80%]">
